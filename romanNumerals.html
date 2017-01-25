@@ -1,0 +1,62 @@
+<body>
+	<head>
+
+		<title>Roman Numerals</title>
+
+	</head>
+
+
+	<script>
+
+		var roman_num = [['I','V','X'],['X','L','C'],['C','D','M'],['M','M','M']];
+
+		//This function builds a Roman value for any given single digit number, depending on it's decimal place. It's passed an array of Roman Numerals to contruct the number from.
+		function testNum(num, rNum){
+      //9 is the special case because it's represented with the "1" Roman Numeral and the "10" Roman Numeral - if the number is 9, we build it with the 0 and 2nd element of the corresponding array and send it back.
+      if (num === 9){
+        return rNum[0]+rNum[2];
+      }
+
+		  var romanNumeral = "";
+  		var numeral = num%5;
+
+      //if greater than or equal to 5, let's start the Roman Numeral with the "5", or middle value.  We add the value to the String variable
+  		if (num >= 5){
+  			romanNumeral += rNum[1];
+  		}
+      //If the numeral mod 5 is zero, then then number is 5, and we can send it back with that value.
+  		if (numeral % 5 == 0){
+  		return romanNumeral;
+  		} else {
+  			if (numeral % 5 == 4) {
+    		romanNumeral = rNum[0]+rNum[1];
+    		} else {
+    		for (i=0; i<(numeral%5); i++){
+    			romanNumeral += rNum[0];
+    			}
+    		}
+  		}
+  		return romanNumeral;
+  		}
+
+  		function convertToRoman(num){
+  			var result = "";
+  			var numArr = [];
+  			var copy = num;
+  			while (copy >= 10){
+  				numArr.push(copy%10);
+  				copy=Math.floor(copy/10);
+  			}
+  			if (copy > 0){
+  				numArr.push(copy);
+  			}
+  			for (var i=0; i<numArr.length; i++){
+  				result = testNum(numArr[i], roman_num[i])+result;
+  			}
+  			return result;
+  		}
+
+  		console.log(convertToRoman(1319));
+	</script>
+
+</body>
